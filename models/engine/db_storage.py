@@ -69,6 +69,11 @@ class DBStorage:
                 self.__session.rollback()
                 raise ex
 
+    @property
+    def session(self):
+        """returns the current db session"""
+        return self.__session
+
     def save(self):
         """commit all changes of the current db session"""
         self.__session.commit()

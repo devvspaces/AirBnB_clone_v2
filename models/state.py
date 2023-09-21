@@ -7,13 +7,14 @@ from sqlalchemy.orm import relationship
 
 from models.base_model import Base, BaseModel
 from models.city import City
+import env
 
 
 class State(BaseModel, Base):
     """ State class / table model"""
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-    cities = relationship('City', backref='state',
+    __cities = relationship('City', backref='state',
                             cascade='all, delete, delete-orphan')
 
     @property
@@ -21,10 +22,10 @@ class State(BaseModel, Base):
         """get all cities with the current state id
         from filestorage
         """
-        from models import storage
-        if env.get('HBNB_TYPE_STORAGE') != 'db':
+        if env.HBNB_TYPE_STORAGE != 'db':
+            from models import storage
             return [
                 v for k, v in storage.all(City).items()
                 if v.state_id == self.id
             ]
-        raise AttributeError()
+        return self.__cities
