@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" """
+"""
+Testing BaseModel class
+"""
 import datetime
 import json
 import os
@@ -9,7 +11,7 @@ import env
 from models.base_model import BaseModel
 
 
-@unittest.skipIf(env.HBNB_TYPE_STORAGE == 'db', "not testing db storage")
+@unittest.skipIf(env.DBTYPE, "not testing db storage")
 class test_basemodel(unittest.TestCase):
     """ """
 

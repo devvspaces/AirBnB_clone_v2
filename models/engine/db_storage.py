@@ -35,7 +35,10 @@ class DBStorage:
             ), pool_pre_ping=True)
 
         if env.HBNB_ENV == 'test':
-            Base.metadata.drop_all(self.__engine)
+            self.drop_tables()
+
+    def drop_tables(self):
+        Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """query on the current db session all cls objects
@@ -50,6 +53,7 @@ class DBStorage:
                 for obj in objs:
                     key = obj.__class__.__name__ + '.' + obj.id
                     dct[key] = obj
+                    del dct[key].__dict__['_sa_instance_state']
         else:
             objs = self.__session.query(cls).all()
             for obj in objs:
@@ -69,8 +73,7 @@ class DBStorage:
                 self.__session.rollback()
                 raise ex
 
-    @property
-    def session(self):
+    def get_session(self):
         """returns the current db session"""
         return self.__session
 
