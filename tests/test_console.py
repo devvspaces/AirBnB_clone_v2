@@ -49,5 +49,4 @@ class TestConsole(unittest.TestCase):
             with patch('sys.stdout', new=StringIO()) as f:
                 HBNBCommand().onecmd("create State name=\"California\"")
                 state_id = f.getvalue()
-                print(state_id)
-                self.assertTrue(len(state_id) > 0)
+            self.assertTrue(len(state_id) > 0)
