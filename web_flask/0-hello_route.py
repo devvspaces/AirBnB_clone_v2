@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""
-Execute a Minimal Flask application
+"""Execute a Minimal Flask application
 """
 from flask import Flask
 
@@ -14,6 +13,4 @@ def hello_hbnb():
 
 
 if __name__ == "__main__":
-    """Main block
-    """
     app.run(host="0.0.0.0")
